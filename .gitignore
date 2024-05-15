@@ -1,0 +1,5 @@
+admin/node_modules/ 
+admin/.angular/ 
+admin/environments/
+back/node_modules/ 
+back/.env

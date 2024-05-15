@@ -1,0 +1,40 @@
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 01:57:04"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-04 12:10:00"}
+{"level":"warn","message":"Login attempt for non-existing user: MASTERADMIN from IP: ::ffff:127.0.0.1","timestamp":"2024-05-04 12:10:26"}
+{"level":"error","message":"Login error for user MASTERADMIN: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 12:10:26"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 12:10:26"}
+{"level":"warn","message":"Login attempt for non-existing user: MASTERADMIN from IP: ::ffff:127.0.0.1","timestamp":"2024-05-04 12:11:54"}
+{"level":"error","message":"Login error for user MASTERADMIN: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 12:11:54"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 12:11:54"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 12:20:00"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 12:40:50"}
+{"level":"info","message":"User jfbgennaro logged in with Google","timestamp":"2024-05-04 12:52:31"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 12:55:19"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 12:58:49"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 13:08:45"}
+{"level":"error","message":"Error durante la autenticación con Google: Rol no encontrado","stack":"Error: Rol no encontrado\n    at authenticateWithGoogle (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:146:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 13:29:46"}
+{"level":"error","message":"Controller error: Rol no encontrado","method":"POST","path":"/api/auth/google","stack":"Error: Rol no encontrado\n    at authenticateWithGoogle (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:146:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 13:29:46"}
+{"level":"info","message":"Usuario gennarobarret inició sesión con Google","timestamp":"2024-05-04 13:31:13"}
+{"level":"info","message":"Usuario gennarobarret inició sesión con Google","timestamp":"2024-05-04 16:16:44"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 16:19:03"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-04 16:43:34"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 17:46:12"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-04 18:01:49"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 18:03:27"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 18:42:38"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 18:46:31"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 20:45:37"}
+{"level":"info","message":"User gennarobarret logged in with Google","timestamp":"2024-05-04 20:48:27"}
+{"level":"warn","message":"Login attempt for non-existing user: masterAdmin from IP: ::ffff:127.0.0.1","timestamp":"2024-05-04 21:10:46"}
+{"level":"error","message":"Login error for user masterAdmin: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 21:10:46"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 21:10:46"}
+{"level":"warn","message":"Login attempt for non-existing user: masterAdmin from IP: ::ffff:127.0.0.1","timestamp":"2024-05-04 21:11:31"}
+{"level":"error","message":"Login error for user masterAdmin: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 21:11:31"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:83:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-04 21:11:31"}
+{"level":"info","message":"Existing Google user logged in: gennarobarret","timestamp":"2024-05-04 21:11:40"}
+{"level":"info","message":"Existing Google user logged in: gennarobarret","timestamp":"2024-05-04 22:32:59"}
+{"level":"info","message":"Existing Google user logged in: gennarobarret","timestamp":"2024-05-04 22:50:15"}
+{"level":"info","message":"Existing Google user logged in: gennarobarret","timestamp":"2024-05-04 23:04:47"}
+{"level":"info","message":"Existing Google user logged in: gennarobarret","timestamp":"2024-05-04 23:08:27"}
+{"level":"info","message":"Existing Google user logged in: gennarobarret","timestamp":"2024-05-04 23:13:55"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-04 23:42:33"}

@@ -1,0 +1,208 @@
+{
+    "categories": [
+      {
+        "_id": "category_id_1",
+        "name": "Ornamental Objects",
+        "description": "Artistic objects made from composite materials",
+        "createdBy": "team_member_id_1",
+        "editedBy": "team_member_id_2"
+      }
+    ],
+    "subcategories": [
+      {
+        "_id": "subcategory_id_1",
+        "name": "Sculptures",
+        "description": "Artistic sculptures",
+        "category": "category_id_1",
+        "createdBy": "team_member_id_1",
+        "editedBy": "team_member_id_2"
+      },
+      {
+        "_id": "subcategory_id_2",
+        "name": "Decorative Items",
+        "description": "Various decorative items",
+        "category": "category_id_1",
+        "createdBy": "team_member_id_2",
+        "editedBy": "team_member_id_1"
+      }
+    ],
+    "suppliers": [
+      {
+        "_id": "supplier_id_1",
+        "name": "Artisan Crafters",
+        "contactInfo": {
+          "email": "artisancrafters@example.com",
+          "phone": "123-456-7890",
+          "address": "789 Art Street, Art City, Artland"
+        },
+        "createdBy": "team_member_id_1",
+        "editedBy": "team_member_id_2"
+      }
+    ],
+    "products": [
+      {
+        "_id": "product_id_1",
+        "name": "Composite Sculpture",
+        "description": "Artistic sculpture made from composite materials",
+        "coverImage": "sculpture_cover_image_url.jpg",
+        "variations": [
+          {
+            "_id": "variation_id_1",
+            "variation": [
+              {
+                "name": "Size",
+                "value": "Medium"
+              },
+              {
+                "name": "Style",
+                "value": "Abstract"
+              }
+            ],
+            "price": 299.99,
+            "weight": 5.0,
+            "height": 20,
+            "width": 10,
+            "length": 30,
+            "photos": [
+              "photo_url_abstract_sculpture_1.jpg"
+            ],
+            "offers": [
+              {
+                "offerName": "Holiday Sale",
+                "discountPercentage": 15
+              }
+            ],
+            "supplier": "supplier_id_1",
+            "slug": "composite-sculpture-medium-abstract",
+            "stock": 10,
+            "points": 50,
+            "sales": 20,
+            "createdBy": "team_member_id_1",
+            "editedBy": "team_member_id_2"
+          }
+        ],
+        "category": "category_id_1",
+        "subcategory": "subcategory_id_1",
+        "createdBy": "team_member_id_1",
+        "editedBy": "team_member_id_2"
+      },
+      {
+        "_id": "product_id_2",
+        "name": "Decorative Composite Vase",
+        "description": "Exquisite decorative vase made from composite materials",
+        "coverImage": "vase_cover_image_url.jpg",
+        "variations": [
+          {
+            "_id": "variation_id_2",
+            "variation": [
+              {
+                "name": "Color",
+                "value": "Gold"
+              },
+              {
+                "name": "Style",
+                "value": "Classic"
+              }
+            ],
+            "price": 129.99,
+            "weight": 3.0,
+            "height": 15,
+            "width": 8,
+            "length": 8,
+            "photos": [
+              "photo_url_gold_vase_1.jpg"
+            ],
+            "offers": [],
+            "supplier": "supplier_id_1",
+            "slug": "decorative-composite-vase-gold-classic",
+            "stock": 15,
+            "points": 40,
+            "sales": 8,
+            "createdBy": "team_member_id_2",
+            "editedBy": "team_member_id_1"
+          }
+        ],
+        "category": "category_id_1",
+        "subcategory": "subcategory_id_2",
+        "createdBy": "team_member_id_2",
+        "editedBy": "team_member_id_1"
+      }
+    ],
+    "teamWork": [
+      {
+        "_id": "team_member_id_1",
+        "name": "Alex Johnson",
+        "role": "Designer",
+        "email": "alexjohnson@example.com",
+        "phone": "123-456-7890",
+        "additionalInfo": "Specialized in composite materials",
+        "profileImage": "alex_profile_image_url.jpg"
+      },
+      {
+        "_id": "team_member_id_2",
+        "name": "Emily Clark",
+        "role": "Artisan",
+        "email": "emilyclark@example.com",
+        "phone": "987-654-3210",
+        "additionalInfo": "Expert in ornamental crafts",
+        "profileImage": "emily_profile_image_url.jpg"
+      }
+    ],
+    "clients": [
+      {
+        "_id": "client_id_1",
+        "name": "Art Collector Co.",
+        "email": "artcollectorco@example.com",
+        "phone": "123-456-7890",
+        "address": {
+          "country": "Artland",
+          "state": "Artstate",
+          "address1": "456 Art Avenue",
+          "address2": "Suite 100",
+          "zipcode": "54321"
+        },
+        "orders": [
+          {
+            "_id": "order_id_1",
+            "products": [
+              {
+                "productId": "product_id_1",
+                "quantity": 1
+              }
+            ],
+            "totalPrice": 299.99,
+            "orderDate": "2023-11-20"
+          }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "_id": "review_id_1",
+        "productId": "product_id_1",
+        "clientId": "client_id_1",
+        "rating": 5,
+        "comment": "This sculpture is a masterpiece, absolutely stunning!"
+      }
+    ],
+    "inventory": [
+      {
+        "variationId": "variation_id_1",
+        "stock": 10
+      },
+      {
+        "variationId": "variation_id_2",
+        "stock": 15
+      }
+    ],
+    "config": {
+      "currency": "USD",
+      "taxRate": 0.15,
+      "shippingOptions": [
+        "Standard",
+        "Express"
+      ],
+      "defaultShipping": "Standard"
+    }
+  }
+  

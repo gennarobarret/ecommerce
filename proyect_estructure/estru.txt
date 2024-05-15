@@ -1,0 +1,265 @@
+├───Dashboard
+│   ├───Resumen general (ventas, visitas, citas para asesorías)
+│   ├───Notificaciones importantes
+│   └───Indicadores clave de rendimiento (KPIs)
+│
+├───Business Management (Gestión de Negocios)
+│   ├───Store Configuration (Configuración de la Tienda)
+│   │   ├───Información del negocio (nombre, contacto, dirección)
+│   │   ├───Configuración de pagos y envíos
+│   │   └───Opciones de personalización
+│   │
+; │   ├───Business Policies (Políticas de Negocio)
+; │   │   ├───Políticas de devolución
+; │   │   ├───Términos y condiciones
+; │   │   └───Política de privacidad
+│   │
+│   └───Sales Strategy (Estrategia de Ventas)
+│       ├───Promociones y descuentos
+│       ├───Análisis de mercado
+│       └───Estrategias de precios
+│ 
+├───User Management (Gestión de Usuarios)
+│   ├───Customer Management (Gestión de Clientes)
+│   │   ├───Registro de clientes
+│   │   ├───Seguimiento de actividad del cliente
+│   │   ├───Gestión de preferencias y datos
+│   │   ├───Gestión de clientes
+│   │   └───Historial de compras
+│   │
+│   ├───Staff Management (Gestión de Personal)
+│   │   ├───Agregar nuevo empleado
+│   │   ├───Asignación de roles y permisos
+│   │   └───Seguimiento de rendimiento
+│   │
+│   └───Role and Permission Management (Gestión de Roles y Permisos)
+│       ├───Creación y edición de roles
+│       ├───Asignación de permisos a roles
+│       └───Asignación de roles a usuarios
+│
+├───Quotations (Cotizaciones)
+│   ├───Nuevas solicitudes
+│   ├───En proceso
+│   └───Histórico de cotizaciones
+│
+├───Purchases (Compras)
+│   ├───Órdenes de compra a proveedores
+│   ├───Seguimiento de órdenes
+│   └───Historial de compras
+│
+├───Inventory (Inventario)
+│   ├───Products (Productos)
+│   │   ├───Agregar nuevo producto
+│   │   ├───Listado de productos
+│   │   └───Gestión de productos (editar/eliminar)
+│   │
+│   ├───Categories (Categorías)
+│   │   ├───Agregar nueva categoría
+│   │   ├───Listado de categorías
+│   │   └───Gestión de categorías (editar/eliminar)
+│   │
+│   ├───Subcategories (Subcategorías)
+│   │   ├───Agregar nueva subcategoría
+│   │   ├───Listado de subcategorías
+│   │   └───Gestión de subcategorías (editar/eliminar)
+│   │
+│   ├───Brands (Marcas)
+│   │   ├───Agregar nueva marca
+│   │   ├───Listado de marcas
+│   │   └───Gestión de marcas (editar/eliminar)
+│   │
+│   ├───Units (Unidades)
+│   │   ├───Agregar nueva unidad
+│   │   ├───Listado de unidades
+│   │   └───Gestión de unidades (editar/eliminar)
+│   │
+│   ├───Variations (Variaciones)
+│   │   ├───Agregar nueva variación
+│   │   ├───Listado de variaciones
+│   │   └───Gestión de variaciones (editar/eliminar)
+│   │
+│   ├───Print Barcode (Imprimir código de barras)
+│   │   ├───Generar códigos de barras
+│   │   └───Imprimir códigos de barras
+│   │
+│   ├───Stock Adjustments (Ajustes de stock)
+│   │   ├───Agregar ajuste de stock
+│   │   ├───Listado de ajustes
+│   │   └───Gestión de ajustes (editar/eliminar)
+│   │
+│   └───Stock Transfers (Transferencias de stock)
+│   │   ├───Agregar transferencia de stock
+│   │   ├───Listado de transferencias
+│   │   └───Gestión de transferencias (editar/eliminar)
+│   ├───Materiales para instalación
+│   └───Gestión de proveedores
+│ 
+├───People (Personas)
+│   ├───Clientes
+│   │   ├───Gestión de clientes
+│   │   └───Historial de compras
+│   ├───Proveedores
+│   └───Contactos para asesorías
+│
+├───HRM (Gestión de Recursos Humanos)
+│   ├───Empleados
+│   │   ├───Perfiles
+│   │   ├───Salarios
+│   │   └───Horarios
+│   ├───Contratistas
+│   └───Capacitaciones
+│
+├───Accounting (Contabilidad)
+│   ├───Facturación y pagos
+│   ├───Gestión de gastos
+│   └───Reportes financieros
+│
+├───Settings (Configuración)
+│   ├───Configuración de la tienda
+│   ├───Gestión de usuarios (permisos y roles)
+│   └───Personalización del sitio web
+│
+├───My Account (Mi Cuenta)
+│   ├───Información personal
+│   ├───Seguridad
+│   └───Preferencias
+│
+├───Offers and Discounts (Ofertas y Descuentos)
+│   ├───Discount Codes (Códigos de Descuento)
+│   │   ├───Crear nuevos códigos
+│   │   ├───Gestionar códigos existentes
+│   │   └───Monitorear uso y efectividad
+│   │
+│   ├───Special Offers (Ofertas Especiales)
+│   │   ├───Crear nuevas ofertas
+│   │   ├───Configurar condiciones (por tiempo limitado, productos específicos, etc.)
+│   │   └───Seguimiento de la participación y resultados
+│   │
+│   ├───Bulk Discounts (Descuentos por Volumen)
+│   │   ├───Configurar descuentos por cantidad
+│   │   ├───Asignar a categorías o productos específicos
+│   │   └───Evaluar impacto en las ventas
+│   │
+│   └───Seasonal Promotions (Promociones Estacionales)
+│       ├───Planificar promociones para fechas específicas o temporadas
+│       ├───Personalizar ofertas según eventos o festividades
+│       └───Análisis post-promoción y ajustes para futuras campañas
+│  
+└───Reports (Reportes)
+│    ├───Ventas
+│    ├───Inventario
+│    ├───Rendimiento de asesorías
+│    └───Análisis financiero
+│  
+├───Developer Tools (Herramientas para Desarrolladores)
+│   ├───Issue Tracker (Seguimiento de Incidencias)
+│   │   ├───Reportar nuevas incidencias
+│   │   ├───Listado de incidencias abiertas
+│   │   └───Seguimiento y actualización de incidencias
+│   │
+│   ├───Feature Requests (Solicitudes de Funcionalidades)
+│   │   ├───Enviar nuevas solicitudes
+│   │   ├───Votar por solicitudes existentes
+│   │   └───Revisión y planificación de solicitudes
+│   │
+│   ├───System Updates (Actualizaciones del Sistema)
+│   │   ├───Planificación de actualizaciones
+│   │   ├───Historial de actualizaciones
+│   │   └───Notificaciones de mantenimiento
+│   │
+│   └───Development Documentation (Documentación de Desarrollo)
+│       ├───Guías y tutoriales
+│       ├───API Documentation (Documentación de la API)
+│       └───Best Practices (Mejores Prácticas)
+├───Sales (Ventas)
+│   ├───Order Management (Gestión de Pedidos)
+│   │   ├───Nuevo Pedido
+│   │   ├───Seguimiento de Pedidos
+│   │   └───Historial de Pedidos
+│   │
+│   ├───Customer Service (Servicio al Cliente)
+│   │   ├───Consultas
+│   │   ├───Devoluciones
+│   │   └───Soporte Post-Venta
+│   │
+│   └───Payment Processing (Procesamiento de Pagos)
+│       ├───Gestión de Pagos
+│       ├───Reembolsos
+│       └───Reportes Financieros
+├───Posts Management (Gestión de Publicaciones)
+│   ├───Content Creation (Creación de Contenido)
+│   │   ├───Nuevo Post
+│   │   ├───Editor de Contenido
+│   │   └───Publicación
+│   │
+│   ├───Content Curation (Curación de Contenido)
+│   │   ├───Revisión de Contenidos
+│   │   ├───Programación de Publicaciones
+│   │   └───Archivos de Publicaciones
+│   │
+│   └───Analytics (Analítica)
+│       ├───Engagement del Usuario
+│       ├───Rendimiento de Publicaciones
+│       └───Feedback y Comentarios
+│
+├───Company Policies (Políticas de la Empresa)
+│   ├───Employee Handbook (Manual del Empleado)
+│   │   ├───Code of Conduct (Código de Conducta)
+│   │   ├───Workplace Policies (Políticas del Lugar de Trabajo)
+│   │   └───Health and Safety Guidelines (Directrices de Salud y Seguridad)
+│   │
+│   ├───Customer Policies (Políticas para Clientes)
+│   │   ├───Return and Refund Policy (Política de Devolución y Reembolso)
+│   │   ├───Privacy Policy (Política de Privacidad)
+│   │   ├───Terms of Service (Términos de Servicio)
+│   │   └───Warranty Information (Información de Garantía)
+│   │
+│   ├───Supplier Policies (Políticas para Proveedores)
+│   │   ├───Code of Ethics (Código de Ética)
+│   │   ├───Procurement Policies (Políticas de Adquisición)
+│   │   └───Payment Terms (Términos de Pago)
+│   │
+│   └───Compliance and Legal (Cumplimiento y Aspectos Legales)
+│       ├───Regulatory Compliance (Cumplimiento Regulatorio)
+│       ├───Data Protection (Protección de Datos)
+│       └───Intellectual Property Rights (Derechos de Propiedad Intelectual)
+│
+├───Knowledge Base (Base de Conocimientos)
+│   ├───For Customers (Para Clientes)
+│   │   ├───Product Guides (Guías de Producto)
+│   │   ├───FAQs (Preguntas Frecuentes)
+│   │   ├───Troubleshooting (Resolución de Problemas)
+│   │   └───Tips and Tricks (Consejos y Trucos)
+│   │
+│   ├───For Employees (Para Empleados)
+│   │   ├───Operational Procedures (Procedimientos Operativos)
+│   │   ├───Training Materials (Materiales de Formación)
+│   │   ├───Company Policies (Políticas de la Empresa)
+│   │   └───Internal FAQs (Preguntas Frecuentes Internas)
+│   │
+│   └───For Developers (Para Desarrolladores)
+│       ├───Technical Documentation (Documentación Técnica)
+│       ├───API Guides (Guías de API)
+│       ├───Code Examples (Ejemplos de Código)
+│       └───Development Best Practices (Mejores Prácticas de Desarrollo)
+│ 
+├───Shipping Services (Servicios de Envío)
+│   ├───Shipping Options (Opciones de Envío)
+│   │   ├───Configuración de tarifas de envío
+│   │   ├───Selección de proveedores de servicios
+│   │   └───Opciones de envío por destino
+│   │
+│   ├───Order Fulfillment (Cumplimiento de Pedidos)
+│   │   ├───Integración con inventario para preparación de pedidos
+│   │   ├───Generación de etiquetas de envío
+│   │   └───Empaquetado y despacho
+│   │
+│   ├───Tracking and Updates (Seguimiento y Actualizaciones)
+│   │   ├───Integración con sistemas de seguimiento de los proveedores
+│   │   ├───Notificaciones automáticas al cliente
+│   │   └───Actualización del estado del pedido en tiempo real
+│   │
+│   └───Returns Management (Gestión de Devoluciones)
+│       ├───Políticas de devolución y reembolso
+│       ├───Proceso de devolución para clientes
+│       └───Gestión de inventario de productos devueltos

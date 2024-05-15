@@ -1,0 +1,97 @@
+proyecto-angular/
+├── angular.json
+├── package.json
+├── tsconfig.json
+├── tslint.json
+├── README.md
+├── node_modules/
+├── e2e/
+├── src/
+│   ├── app/
+│   │   ├── core/                           # Servicios centrales, modelos, interceptores
+│   │   │   ├── auth/                       # Autenticación y autorización
+│   │   │   │   ├── guards/                 # Guards de seguridad
+│   │   │   │   │   ├── auth.guard.ts
+│   │   │   │   │   ├── role.guard.ts
+│   │   │   │   │   └── permission.guard.ts
+│   │   │   │   └── auth.service.ts
+│   │   │   ├── rbac/                       # Servicios y utilidades de RBAC
+│   │   │   │   ├── role.service.ts
+│   │   │   │   └── permission.service.ts
+│   │   │   ├── integration/                # Integraciones con servicios externos
+│   │   │   │   ├── payment-api.service.ts
+│   │   │   │   └── shipping-api.service.ts
+│   │   │   ├── config/                     # Configuración y personalización
+│   │   │   │   └── store-config.service.ts
+│   │   │   ├── services/                   # Servicios globales (API, etc.)
+│   │   │   ├── models/                     # Modelos de datos (usuario, producto, etc.)
+│   │   │   └── interceptors/               # Interceptores HTTP (auth, logging, etc.)
+│   │   │   └── core.module.ts         
+│   │   ├── modules/                        # Módulos de características
+│   │   │   ├── layout/                     # Módulo de diseño de la aplicación
+│   │   │   │   ├── header/
+│   │   │   │   │   └── header.component.ts
+│   │   │   │   ├── sidebar/
+│   │   │   │   │   └── sidebar.component.ts
+│   │   │   │   ├── footer/
+│   │   │   │   │   └── footer.component.ts
+│   │   │   │   ├── main-layout/
+│   │   │   │   │   └── main-layout.component.ts
+│   │   │   │   └── routing-layout.module.ts
+│   │   │   │   └── layout.module.ts
+│   │   │   ├── auth/
+│   │   │   │   ├── login/
+│   │   │   │   │   └── login.component.ts
+│   │   │   │   ├── register/
+│   │   │   │   │   └── register.component.ts
+│   │   │   │   ├── auth-routing.module.ts
+│   │   │   │   └── auth.module.ts 
+│   │   │   ├── admin/
+│   │   │   │   ├── dashboard/
+│   │   │   │   │   └── dashboard.component.ts
+│   │   │   │   ├── role-management/
+│   │   │   │   │   └── role-management.component.ts
+│   │   │   │   ├── audit/
+│   │   │   │   │   └── audit.component.ts
+│   │   │   │   ├── admin-routing.module.ts
+│   │   │   │   └── admin.module.ts
+│   │   │   ├── products/                   # Módulo de productos
+│   │   │   │   ├── product-list/
+│   │   │   │   │   └── product-list.component.ts
+│   │   │   │   ├── product-detail/
+│   │   │   │   │   └── product-detail.component.ts
+│   │   │   │   ├── products-routing.module.ts
+│   │   │   │   └── products.module.ts
+│   │   │   ├── customers/                  # Módulo de clientes
+│   │   │   │   ├── customer-list/
+│   │   │   │   │   └── customer-list.component.ts
+│   │   │   │   ├── customer-detail/
+│   │   │   │   │   └── customer-detail.component.ts
+│   │   │   │   ├── customers-routing.module.ts
+│   │   │   │   └── customers.module.ts
+│   │   │   ├── providers/                  # Módulo de proveedores
+│   │   │   │   ├── provider-list/
+│   │   │   │   │   └── provider-list.component.ts
+│   │   │   │   ├── provider-detail/
+│   │   │   │   │   └── provider-detail.component.ts
+│   │   │   │   ├── providers-routing.module.ts
+│   │   │   │   └── providers.module.ts
+│   │   │   └── ... (otros módulos de características según sea necesario)
+│   │   ├── shared/                         # Componentes, directivas y pipes compartidos
+│   │   │   ├── components/
+│   │   │   ├── directives/
+│   │   │   └── pipes/
+│   │   └── app.module.ts                   # Módulo raíz
+│   ├── assets/
+│   ├── environments/
+│   │   ├── environment.prod.ts
+│   │   └── environment.ts
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── styles.css
+│   └── test.ts
+├── .editorconfig
+├── .gitignore
+└── karma.conf.js

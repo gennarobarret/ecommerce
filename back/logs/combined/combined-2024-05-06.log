@@ -1,0 +1,23 @@
+{"level":"warn","message":"Failed login attempt for user: masteradmin from IP: ::ffff:127.0.0.1","timestamp":"2024-05-06 21:56:02"}
+{"level":"error","message":"Login error for user masteradmin: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:114:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:02"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:114:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:02"}
+{"level":"warn","message":"Failed login attempt for user: masteradmin from IP: ::ffff:127.0.0.1","timestamp":"2024-05-06 21:56:06"}
+{"level":"error","message":"Login error for user masteradmin: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:114:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:06"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:114:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:06"}
+{"level":"warn","message":"Failed login attempt for user: masteradmin from IP: ::ffff:127.0.0.1","timestamp":"2024-05-06 21:56:14"}
+{"level":"error","message":"Login error for user masteradmin: Invalid credentials","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:114:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:14"}
+{"level":"error","message":"Controller error: Invalid credentials","method":"POST","path":"/api/loginUser","stack":"Error: Invalid credentials\n    at loginUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\AuthControllers.js:114:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:14"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 21:56:58"}
+{"level":"error","message":"getUser error: logAudit is not defined","timestamp":"2024-05-06 21:56:58"}
+{"level":"error","message":"controller error: logAudit is not defined","stack":"ReferenceError: logAudit is not defined\n    at getUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\PeopleController.js:162:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 21:56:58"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:02:01"}
+{"level":"error","message":"getUser error: logAudit is not defined","timestamp":"2024-05-06 22:02:01"}
+{"level":"error","message":"controller error: logAudit is not defined","stack":"ReferenceError: logAudit is not defined\n    at getUser (C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\controllers\\PeopleController.js:162:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2024-05-06 22:02:01"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:10:41"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:22:04"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:32:52"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:32:53"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:32:53"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:34:57"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:35:39"}
+{"level":"info","message":"User retrieved: masteradmin","timestamp":"2024-05-06 22:37:44"}
