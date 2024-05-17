@@ -6,21 +6,6 @@
     "auditLog": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\.c99d4577e626480fd587a2b0f587b9da0c6c74e7-audit.json",
     "files": [
         {
-            "date": 1714585311348,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-01.log",
-            "hash": "1d3d140cf0871e0bf5f04b9246fe42f35a8c9a4bee5939f8cd4a70ccc94f6719"
-        },
-        {
-            "date": 1714636007201,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-02.log",
-            "hash": "86229abd906973a9454cf459fae75cd7325850836a85670e4a606146eb82be19"
-        },
-        {
-            "date": 1714692160222,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-03.log",
-            "hash": "629a772b23ddfd2132046a6f65708263915be171d080c1975bc7718c18d87f02"
-        },
-        {
             "date": 1714817426651,
             "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-04.log",
             "hash": "45bfee7238c365b3e571de0fe5c7f1029032a63ae518f0524b1e66382c5b19c7"
@@ -74,6 +59,16 @@
             "date": 1715724123403,
             "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-15.log",
             "hash": "f25f9bb5c74b2af75260a87fae78c5f3fcf5196f384e2420c466fa6c92ea2e14"
+        },
+        {
+            "date": 1715876310506,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-16.log",
+            "hash": "652c401f6df6732767b9972017d56352d7fb3a88fef06350df4f8ed6db1db966"
+        },
+        {
+            "date": 1715930520872,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-17.log",
+            "hash": "239ce7862c581c70dafaceb26a069c1dc269e1f130262c8151efcbb2d80dd58b"
         }
     ],
     "hashType": "sha256"

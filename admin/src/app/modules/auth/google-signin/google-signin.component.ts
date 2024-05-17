@@ -34,7 +34,7 @@ export class GoogleSigninComponent implements OnInit {
       client_id: environment.googleClientId,
       callback: (response: any) => this.onSignIn(response),  // Utiliza una arrow function aquí
       ux_mode: 'popup',
-      login_uri: 'http://localhost:4200/auth/login',
+      login_uri: environment.loginUri,
       auto_prompt: false,
       auto_select: false
     });

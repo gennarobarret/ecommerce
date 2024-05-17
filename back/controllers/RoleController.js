@@ -3,10 +3,10 @@
 
 const Role = require("../models/roleModel");
 const AuditLog = require('../models/auditLogModel');
-const { validateRole } = require('../helpers/validate');
+const { validateRole } = require('../helpers/validateHelper');
 const logger = require('../helpers/logHelper');
-const { ErrorHandler, handleError } = require("../helpers/errorHandler");
-const { createSuccessfulResponse } = require("../helpers/responseHelper");
+const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require("../helpers/responseManagerHelper");
+
 
 const handleControllerError = (error, res) => {
     logger.error('controller error:', error);
@@ -51,9 +51,9 @@ const createRole = async (req, res) => {
         role = new Role({ name, permissions });
         await role.saveWithAudit(userId);
 
-        res.status(200).json(createSuccessfulResponse("Role created successfully", { role }));
+        res.status(200).json(handleSuccessfulResponse("Role created successfully", { role }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
@@ -100,9 +100,9 @@ const updateRole = async (req, res) => {
         // Guardar los cambios con auditoría
         await role.saveWithAudit(userId);
 
-        res.status(200).json(createSuccessfulResponse("Role updated successfully", { role }));
+        res.status(200).json(handleSuccessfulResponse("Role updated successfully", { role }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
@@ -127,18 +127,18 @@ const deleteRole = async function (req, res) {
             }
         });
 
-        res.status(200).json(createSuccessfulResponse("Role deleted successfully", { id: roleToDelete._id }));
+        res.status(200).json(handleSuccessfulResponse("Role deleted successfully", { id: roleToDelete._id }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
 const listRoles = async (req, res) => {
     try {
         const roles = await Role.find().populate('permissions');
-        res.status(200).json(createSuccessfulResponse("Role listed successfully", { roles }));
+        res.status(200).json(handleSuccessfulResponse("Role listed successfully", { roles }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 

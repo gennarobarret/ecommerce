@@ -1,6 +1,5 @@
 const Business = require("../models/businessModel");
-const { ErrorHandler, handleError } = require("../helpers/errorHandler");
-const { createSuccessfulResponse } = require("../helpers/responseHelper");
+const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require("../helpers/responseManagerHelper");
 const logger = require('../helpers/logHelper');
 
 const handleControllerError = (error, res) => {
@@ -17,10 +16,10 @@ const createBusiness = async (req, res) => {
         const businessConfigData = req.body;
         const businessConfig = new Business(businessConfigData);
         await businessConfig.save();
-        res.status(201).json(createSuccessfulResponse("Business configuration created successfully.", { businessConfigId: businessConfig._id }));
+        res.status(201).json(handleSuccessfulResponse("Business configuration created successfully.", { businessConfigId: businessConfig._id }));
     } catch (error) {
         logger.error('createBusiness error:', error);
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
@@ -33,10 +32,10 @@ const updateBusiness = async (req, res) => {
         if (!businessConfig) {
             throw new ErrorHandler(404, "Business configuration not found.");
         }
-        res.status(200).json(createSuccessfulResponse("Business configuration updated successfully.", { businessConfig }));
+        res.status(200).json(handleSuccessfulResponse("Business configuration updated successfully.", { businessConfig }));
     } catch (error) {
         logger.error('updateBusiness error:', error);
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
@@ -47,10 +46,10 @@ const getBusiness = async (req, res) => {
         if (!businessConfig) {
             throw new ErrorHandler(404, "Business configuration not found.");
         }
-        res.status(200).json(createSuccessfulResponse("Business configuration retrieved successfully.", { businessConfig }));
+        res.status(200).json(handleSuccessfulResponse("Business configuration retrieved successfully.", { businessConfig }));
     } catch (error) {
         logger.error('getBusiness error:', error);
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 

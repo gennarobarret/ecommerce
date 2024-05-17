@@ -1,21 +1,21 @@
 // AuthControllers.js
 
 require('dotenv').config();
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
-const User = require("../models/userModel");
-const Role = require("../models/roleModel");
+const User = require('../models/userModel');
+const Role = require('../models/roleModel');
 
-const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require("../helpers/responseManager");
+const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require('../helpers/responseManagerHelper');
 const logger = require('../helpers/logHelper');
 const { logAudit } = require('../helpers/logAuditHelper');
-const jwt = require("../helpers/jwt");
-const { validateResetPassword, validateLogin } = require("../helpers/validate");
-const generateUserName = require('../helpers/userNameGenerator.js');
+const jwt = require('../helpers/jwtHelper');
+const { validateResetPassword, validateLogin } = require('../helpers/validateHelper');
+const generateUserName = require('../helpers/userNameGeneratorHelper');
 const { checkIfAdminEmail } = require('../helpers/adminHelper');
 const { verifyGoogleToken } = require('../helpers/googleAuthHelper');
-const { sendActivationEmail, sendPasswordResetEmail, sendConfirmationEmail, sendVerificationEmail, verificationCodeUrl } = require('../helpers/emailService');
+const { sendActivationEmail, sendPasswordResetEmail, sendConfirmationEmail, sendVerificationEmail, verificationCodeUrl } = require('../helpers/emailServiceHelper');
 
 const MAX_LOGIN_ATTEMPTS = parseInt(process.env.MAX_LOGIN_ATTEMPTS);
 const LOCK_TIME = parseInt(process.env.LOCK_TIME);
@@ -23,7 +23,7 @@ const LOCK_TIME = parseInt(process.env.LOCK_TIME);
 
 function validateLoginEnvironment() {
     if (isNaN(MAX_LOGIN_ATTEMPTS) || isNaN(LOCK_TIME)) {
-        throw new ErrorHandler(500, "Environment variables for login not properly configured.");
+        throw new ErrorHandler(500, 'Environment variables for login not properly configured.');
     }
 }
 
@@ -49,14 +49,14 @@ const loginUser = async (req, res) => {
         validateLoginEnvironment();
         const { password, userName } = req.body;
         if (!password) {
-            logger.error("Login attempt without password");
-            throw new ErrorHandler(400, "Password is required", req.originalUrl, req.method, "Login attempt without password.");
+            logger.error('Login attempt without password');
+            throw new ErrorHandler(400, 'Password is required', req.originalUrl, req.method, 'Login attempt without password.');
         }
         const validationResult = validateLogin({ password, userName });
         if (validationResult.error) {
             const errorMessages = validationResult.error.details.map(detail => detail.message).join(', ');
             logger.error(`Login validation failed: ${errorMessages}`);
-            throw new ErrorHandler(400, "Invalid input", errorMessages, req.originalUrl, req.method, `Login validation failed: ${errorMessages}`);
+            throw new ErrorHandler(400, 'Invalid input', errorMessages, req.originalUrl, req.method, `Login validation failed: ${errorMessages}`);
         }
         const user = await User.findOne({
             userName: { $regex: new RegExp('^' + userName + '$', 'i') }
@@ -72,9 +72,9 @@ const loginUser = async (req, res) => {
                 'Attempt to log in with a non-existent username.',
                 ipAddress
             );
-            throw new ErrorHandler(401, "Invalid credentials", req.originalUrl, req.method, `Login attempt for non-existing user: ${userName} from IP: ${ipAddress}`);
+            throw new ErrorHandler(401, 'Invalid credentials', req.originalUrl, req.method, `Login attempt for non-existing user: ${userName} from IP: ${ipAddress}`);
         }
-        if (user.verification === "notVerified") {
+        if (user.verification === 'notVerified') {
             logger.warn(`Login attempt for not verified account: ${userName} from IP: ${ipAddress}`);
             await logAudit(
                 'LOGIN_ATTEMPT_UNVERIFIED_ACCOUNT', // Acción más descriptiva
@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
                 'Login attempt for an account that has not been verified.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó el acceso
             );
-            throw new ErrorHandler(403, "Account not activated. Please check your email for activation link.", req.originalUrl, req.method, `Login attempt for not verified account: ${userName} from IP: ${ipAddress}`);
+            throw new ErrorHandler(403, 'Account not activated. Please check your email for activation link.', req.originalUrl, req.method, `Login attempt for not verified account: ${userName} from IP: ${ipAddress}`);
         }
 
         if (user.isBlocked) {
@@ -99,7 +99,7 @@ const loginUser = async (req, res) => {
                 'Login attempt for a temporarily locked account.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó el acceso
             );
-            throw new ErrorHandler(403, "Account is temporarily locked. Try again later.", req.originalUrl, req.method, `Login attempt for blocked account: ${userName} from IP: ${ipAddress}`);
+            throw new ErrorHandler(403, 'Account is temporarily locked. Try again later.', req.originalUrl, req.method, `Login attempt for blocked account: ${userName} from IP: ${ipAddress}`);
         }
 
         const check = await bcrypt.compare(password, user.password);
@@ -120,7 +120,7 @@ const loginUser = async (req, res) => {
                 'Failed login attempt due to incorrect password.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó el acceso
             );
-            throw new ErrorHandler(401, "Invalid credentials", req.originalUrl, req.method, `Failed login attempt for user: ${userName} from IP: ${ipAddress}`);
+            throw new ErrorHandler(401, 'Invalid credentials', req.originalUrl, req.method, `Failed login attempt for user: ${userName} from IP: ${ipAddress}`);
         }
 
         user.loginAttempts = 0;
@@ -128,7 +128,7 @@ const loginUser = async (req, res) => {
         await user.save();
         const cleanUser = getCleanUser(user);
         const token = jwt.createToken({ ...cleanUser, role: user.role.name });
-        res.status(200).json(handleSuccessfulResponse("Login successful", {
+        res.status(200).json(handleSuccessfulResponse('Login successful', {
             user: cleanUser,
             token: token
         }));
@@ -158,15 +158,15 @@ const authenticateWithGoogle = async (req, res) => {
         const isAdminEmail = checkIfAdminEmail(userInfo.email);
         const masterAdminRole = await Role.findOne({ name: 'MasterAdministrator' });
         if (!masterAdminRole) {
-            throw new ErrorHandler(500, "MasterAdministrator role not found"), req.originalUrl, req.method, "Web app need a initial setup.";
+            throw new ErrorHandler(500, 'MasterAdministrator role not found'), req.originalUrl, req.method, 'Web app need a initial setup.';
         }
 
         const existsMasterAdmin = await User.findOne({ role: masterAdminRole._id });
         const roleName = (isAdminEmail && !existsMasterAdmin) ? 'MasterAdministrator' : 'Registered';
         let role = await Role.findOne({ name: roleName });
         if (!role) {
-            logger.error("Role " + roleName + " not found.", ipAddress);
-            throw new ErrorHandler(500, "Role not found", req.originalUrl, req.method, "This role need to be added.");
+            logger.error('Role ' + roleName + ' not found.', ipAddress);
+            throw new ErrorHandler(500, 'Role not found', req.originalUrl, req.method, 'This role need to be added.');
         }
 
         let user = await User.findOne({ googleId: userInfo.sub });
@@ -175,14 +175,14 @@ const authenticateWithGoogle = async (req, res) => {
                 googleId: userInfo.sub,
                 emailAddress: userInfo.email,
                 firstName: userInfo.given_name,
-                lastName: userInfo.family_name || "NoLastName",
+                lastName: userInfo.family_name || 'NoLastName',
                 userName: generateUserName(userInfo.email),
                 role: role._id,
-                authMethod: "google",
+                authMethod: 'google',
                 profileImage: userInfo.picture,
                 emailVerified: userInfo.email_verified,
                 locale: userInfo.locale,
-                verification: userInfo.email_verified ? "verified" : "notVerified",
+                verification: userInfo.email_verified ? 'verified' : 'notVerified',
             });
             await user.save();
             logger.info(`New Google user registered: ${user.userName}`, ipAddress);
@@ -221,7 +221,7 @@ const authenticateWithGoogle = async (req, res) => {
         const cleanedUser = getCleanUser(user);
         cleanedUser.role = role.name;
 
-        res.status(200).json(handleSuccessfulResponse("Login successful", {
+        res.status(200).json(handleSuccessfulResponse('Login successful', {
             user: cleanedUser,
             token: userToken
         }));
@@ -263,7 +263,7 @@ const activateUser = async (req, res) => {
                 'Activation attempt with an invalid or expired token.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la activación
             );
-            throw new ErrorHandler(400, "Invalid or expired token.", req.originalUrl, req.method, "Checkout the token.");
+            throw new ErrorHandler(400, 'Invalid or expired token.', req.originalUrl, req.method, 'Checkout the token.');
         }
 
         if (user.verification === 'verified') {
@@ -277,7 +277,7 @@ const activateUser = async (req, res) => {
                 'Redundant activation attempt for an already activated account.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la activación
             );
-            throw new ErrorHandler(400, "This account has already been activated.", req.originalUrl, req.method, );
+            throw new ErrorHandler(400, 'This account has already been activated.', req.originalUrl, req.method, );
         }
 
         user.verification = 'verified';
@@ -287,7 +287,7 @@ const activateUser = async (req, res) => {
 
         try {
             const confirmationEmailSent = await sendActivationEmail(user);
-            res.status(200).json(handleSuccessfulResponse("Account successfully activated", { confirmationEmailSent }));
+            res.status(200).json(handleSuccessfulResponse('Account successfully activated', { confirmationEmailSent }));
             logger.info(`User account activated: ${user.userName} from IP: ${ipAddress}`);
             await logAudit(
                 'USER_ACCOUNT_ACTIVATION_SUCCESS', // Acción más descriptiva
@@ -300,7 +300,7 @@ const activateUser = async (req, res) => {
             );
         } catch (mailError) {
             logger.error('Error sending confirmation email:', mailError);
-            throw new ErrorHandler(500, "Account activated, but error sending confirmation email.");
+            throw new ErrorHandler(500, 'Account activated, but error sending confirmation email.');
         }
 
     } catch (error) {
@@ -314,14 +314,14 @@ const resendVerificationEmail = async (req, res) => {
     try {
         const { emailAddress } = req.body;
         if (!emailAddress) {
-            throw new ErrorHandler(400, "Email address is required.");
+            throw new ErrorHandler(400, 'Email address is required.');
         }
         const user = await User.findOne({ emailAddress, role: 'MasterAdministrator' });
         if (!user) {
-            throw new ErrorHandler(404, "User not found.");
+            throw new ErrorHandler(404, 'User not found.');
         }
         if (user.verification === 'verified') {
-            throw new ErrorHandler(400, "This account has already been verified.");
+            throw new ErrorHandler(400, 'This account has already been verified.');
         }
 
         const token = user.generateConfigurationToken();
@@ -347,9 +347,9 @@ const resendVerificationEmail = async (req, res) => {
                 req.ip // IP desde la cual se solicitó el reenvío
             );
 
-            throw new ErrorHandler(500, "Error sending verification email.");
+            throw new ErrorHandler(500, 'Error sending verification email.');
         }
-        res.status(200).json(handleSuccessfulResponse("Verification email resent successfully to ", user.email));
+        res.status(200).json(handleSuccessfulResponse('Verification email resent successfully to ', user.email));
     } catch (error) {
         logger.error('resendVerificationEmail error:', error);
         handleErrorResponse(error, req, res);
@@ -373,7 +373,7 @@ const forgotPassword = async (req, res) => {
                 'Attempt to reset password without providing an email address.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(400, "Email address is required.");
+            throw new ErrorHandler(400, 'Email address is required.');
         }
         const user = await User.findOne({ emailAddress });
         if (!user) {
@@ -387,7 +387,7 @@ const forgotPassword = async (req, res) => {
                 'Attempt to reset password for a non-existing email address.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(200, "If the email exists in our system, a password reset email will be sent.");
+            throw new ErrorHandler(200, 'If the email exists in our system, a password reset email will be sent.');
         }
 
         if (user.isBlocked) {
@@ -401,7 +401,7 @@ const forgotPassword = async (req, res) => {
                 'Password reset attempt from a blocked account.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(403, "Account blocked. Operation not allowed.");
+            throw new ErrorHandler(403, 'Account blocked. Operation not allowed.');
         }
         if (user.authMethod !== 'local') {
             logger.warn(`Reset attempt with non-local authentication method: ${emailAddress}`);
@@ -414,7 +414,7 @@ const forgotPassword = async (req, res) => {
                 'Password reset attempt using a non-local authentication method.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(403, "Non-local authentication. Operation not allowed.");
+            throw new ErrorHandler(403, 'Non-local authentication. Operation not allowed.');
         }
         const resetToken = user.generatePasswordResetToken();
         const verificationCode = user.generateVerificationCode();
@@ -432,7 +432,7 @@ const forgotPassword = async (req, res) => {
             'Password reset email sent successfully.', // Mensaje detallado
             ipAddress // IP desde la cual se completó la operación
         );
-        res.status(200).json(handleSuccessfulResponse("If the email exists in our system, a password reset email will be sent.", {}));
+        res.status(200).json(handleSuccessfulResponse('If the email exists in our system, a password reset email will be sent.', {}));
 
     } catch (error) {
         logger.error(`Forgot password error: ${error.message} from IP: ${getClientIp(req)}`, { stack: error.stack });
@@ -466,7 +466,7 @@ const verificationCode = async (req, res) => {
                 'Verification attempt failed due to missing token or verification code.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(400, "Token and verification code are required.");
+            throw new ErrorHandler(400, 'Token and verification code are required.');
         }
         const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
         const user = await User.findOne({
@@ -485,7 +485,7 @@ const verificationCode = async (req, res) => {
                 'Verification attempt failed due to invalid or expired token or verification code.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(400, "Invalid or expired token or verification code.");
+            throw new ErrorHandler(400, 'Invalid or expired token or verification code.');
         }
         const newResetToken = user.generatePasswordResetToken();
         user.verificationCode = null;
@@ -500,10 +500,10 @@ const verificationCode = async (req, res) => {
             'Verification code validated successfully, user can now reset password.', // Mensaje detallado
             ipAddress // IP desde la cual se completó la operación
         );
-        res.status(200).json(handleSuccessfulResponse("Verification code is valid. Change to a new password.",
+        res.status(200).json(handleSuccessfulResponse('Verification code is valid. Change to a new password.',
             { resetToken: newResetToken }));
     } catch (error) {
-        logger.error("Verify verification code error:", error);
+        logger.error('Verify verification code error:', error);
         await logAudit(
             'VERIFICATION_CODE_PROCESSING_ERROR', // Acción más descriptiva
             null, // Sin usuario específico si el error impide la identificación
@@ -552,7 +552,7 @@ const resetPassword = async (req, res) => {
                 'Password reset attempt with an invalid or expired token.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(400, "Invalid or expired password reset token.");
+            throw new ErrorHandler(400, 'Invalid or expired password reset token.');
         }
         let isOldPassword = false;
         for (const p of user.passwordHistory) {
@@ -572,7 +572,7 @@ const resetPassword = async (req, res) => {
                 'User attempted to reuse an old password.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la operación
             );
-            throw new ErrorHandler(400, "The new password cannot be the same as any of your previous passwords.");
+            throw new ErrorHandler(400, 'The new password cannot be the same as any of your previous passwords.');
         }
         user.password = newPassword;
         user.resetPasswordToken = undefined;
@@ -594,7 +594,7 @@ const resetPassword = async (req, res) => {
             'Password has been reset successfully.', // Mensaje detallado
             ipAddress // IP desde la cual se completó la operación
         );
-        res.status(200).json(handleSuccessfulResponse("Your password has been updated successfully.", {}));
+        res.status(200).json(handleSuccessfulResponse('Your password has been updated successfully.', {}));
     } catch (error) {
         logger.error(`Reset password error for user ${req.body.userName}: ${error.message}`, { stack: error.stack });
         await logAudit(

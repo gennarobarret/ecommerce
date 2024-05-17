@@ -1,6 +1,7 @@
 "use strict";
 const AuditLog = require("../models/auditLogModel");
-const { ErrorHandler, handleError } = require("../helpers/errorHandler");
+const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require("../helpers/responseManagerHelper");
+
 
 const getAuditLogsByTargetDoc = async (req, res) => {
     try {

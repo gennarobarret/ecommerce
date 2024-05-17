@@ -4,16 +4,8 @@
 const User = require('../models/userModel');
 const Role = require('../models/roleModel');
 const logger = require('../helpers/logHelper');
-const { ErrorHandler, handleError } = require("../helpers/errorHandler");
+const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require("../helpers/responseManagerHelper");
 
-// HANDLER CONTROLLER
-const handleControllerError = (error, res) => {
-    logger.error('controller error:', error);
-    if (!(error instanceof ErrorHandler)) {
-        error = new ErrorHandler(500, error.message || "Server error");
-    }
-    handleError(error, res);
-};
 
 const rbacMiddleware = (action, resource) => async (req, res, next) => {
     try {

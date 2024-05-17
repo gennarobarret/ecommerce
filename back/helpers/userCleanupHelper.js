@@ -6,7 +6,7 @@ const deleteUserIfNotVerified = async () => {
 
     try {
         const result = await User.deleteMany({
-            Verification: 'notActivate',
+            Verification: 'notVerified',
             createdAt: { $lt: expirationDate }
         });
         console.log('Usuarios no verificados eliminados con éxito. Cantidad:', result.deletedCount);

@@ -4,9 +4,9 @@
 const Permission = require("../models/permissionModel");
 const Role = require("../models/roleModel");
 const logger = require('../helpers/logHelper');
-const { ErrorHandler, handleError } = require("../helpers/errorHandler");
-const { createSuccessfulResponse } = require("../helpers/responseHelper");
-const { validatePermission } = require('../helpers/validate');
+const { validatePermission } = require('../helpers/validateHelper');
+const { ErrorHandler, handleErrorResponse, handleSuccessfulResponse } = require("../helpers/responseManagerHelper");
+
 
 const handleControllerError = (error, res) => {
     logger.error('controller error:', error);
@@ -54,9 +54,9 @@ const createPermission = async (req, res) => {
             await masterAdminRole.saveWithAudit(userId); // Guarda los cambios en el rol
         }
 
-        res.status(200).json(createSuccessfulResponse("Permission created successfully", { permission }));
+        res.status(200).json(handleSuccessfulResponse("Permission created successfully", { permission }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
@@ -91,9 +91,9 @@ const updatePermission = async (req, res) => {
         // Guardar los cambios usando saveWithAudit para asegurar el registro de auditoría
         await permission.saveWithAudit(userId); // Asume que req.user.sub contiene el ID del usuario que realiza la operación
 
-        res.status(200).json(createSuccessfulResponse("Permission updated successfully", { permission }));
+        res.status(200).json(handleSuccessfulResponse("Permission updated successfully", { permission }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
@@ -119,18 +119,18 @@ const deletePermission = async function (req, res) {
             }
         });
 
-        res.status(200).json(createSuccessfulResponse("Permission deleted successfully", { id: permissionToDelete._id }));
+        res.status(200).json(handleSuccessfulResponse("Permission deleted successfully", { id: permissionToDelete._id }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
 const listPermissions = async (req, res) => {
     try {
         const permissions = await Permission.find();
-        res.status(200).json(createSuccessfulResponse("Permissions listed successfully", { permissions }));
+        res.status(200).json(handleSuccessfulResponse("Permissions listed successfully", { permissions }));
     } catch (error) {
-        handleControllerError(error, res);
+        handleErrorResponse(error, req, res);
     }
 };
 
