@@ -7,6 +7,7 @@ import { BillingComponent } from '../my-account/billing/billing.component';
 import { SecurityComponent } from '../my-account/security/security.component';
 import { NotificationsComponent } from '../my-account/notifications/notifications.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UserImageComponent } from './profile/user-image/user-image.component';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ProfileComponent,
     BillingComponent,
     SecurityComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    UserImageComponent
   ],
   imports: [
     CommonModule,

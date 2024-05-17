@@ -41,7 +41,7 @@ export class ResponseHandlingService {
       } else {
         // Si la respuesta tiene un estado diferente de 'success', es un error
         message = response.message || 'Ocurrió un error en el servidor';
-        console.error(message);
+        console.error(response.message);
         this.messageSubject.next(message);
         return throwError(() => new Error(message));
       }

@@ -15,7 +15,7 @@ export class HttpResponseInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
-          console.log("🚀 ~ HttpResponseInterceptor ~ intercept ~ event:", event)
+          // console.log("🚀 ~ HttpResponseInterceptor ~ intercept ~ event:", event)
           // console.log(`Response status: ${event.status} - ${event.statusText}`);
         }
       })

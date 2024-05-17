@@ -79,7 +79,6 @@ const updateUserImage = async (req, res) => {
     }
 };
 
-
 // GET USER PROFILE PICTURE
 const getUserImage = async function (req, res) {
     try {
