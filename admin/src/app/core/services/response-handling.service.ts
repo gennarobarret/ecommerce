@@ -1,6 +1,7 @@
+// response-handling.service.ts
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Subject, throwError } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,43 +13,38 @@ export class ResponseHandlingService {
   constructor() { }
 
   public handleResponse(response: any) {
-    let message = 'Ocurrió un response desconocido';
-
-    // Verificar si la respuesta es un HttpResponse
     if (response instanceof HttpResponse) {
-      // Verificar si la respuesta tiene un cuerpo JSON
-      if (response.body) {
-        // Manejar respuesta exitosa del servidor con cuerpo JSON
-        message = `Respuesta del servidor recibida: ${response.status} - ${response.statusText}`;
-        console.log(message);
-        this.messageSubject.next(message);
-        return response;
-      } else {
-        // Si la respuesta no tiene cuerpo, es una respuesta vacía
-        message = `Respuesta del servidor recibida: ${response.status} - ${response.statusText}`;
-        console.log(message);
-        this.messageSubject.next(message);
-        return response;
-      }
-    } else if (typeof response === 'object' && response !== null) {
-      // Si la respuesta es un objeto JSON
+      // Manejo de HttpResponse
+      let message = `Respuesta del servidor: ${response.status} - ${response.statusText}`;
+      console.log(message);
+      this.messageSubject.next(message);
+    } else if (response instanceof Blob) {
+      // Manejo de Blob
+      let message = `Se recibió un archivo Blob de tipo ${response.type} y tamaño ${response.size}`;
+      console.log(message);
+      this.messageSubject.next(message);
+    } else if (response && typeof response === 'object') {
+      // Manejo de respuestas JSON típicas
       if (response.status === 'success') {
-        // Si la respuesta tiene el estado 'success', es una respuesta satisfactoria
-        message = response.message;
-        console.log(message);
-        this.messageSubject.next(message);
-        return response;
+        console.log(response.message);
+        this.messageSubject.next(response.message);
       } else {
-        // Si la respuesta tiene un estado diferente de 'success', es un error
-        message = response.message || 'Ocurrió un error en el servidor';
-        console.error(response.message);
-        this.messageSubject.next(message);
-        return throwError(() => new Error(message));
+        console.error('Respuesta de error:', response.message);
+        this.messageSubject.next('Error: ' + response.message);
       }
     } else {
-      // Si no se puede manejar la respuesta, lanzar un error
-      console.error('No se pudo manejar la respuesta del servidor:', response);
-      throw new Error('Error al manejar la respuesta del servidor');
+      // Respuestas no esperadas
+      console.error('Tipo de respuesta no manejada:', response);
     }
+    return response;
+  }
+
+
+
+  public handleDataResponse(response: any) {
+    let message = response.message || 'Operación exitosa';
+    console.log(message);
+    this.messageSubject.next(message);
+    return response.data;
   }
 }

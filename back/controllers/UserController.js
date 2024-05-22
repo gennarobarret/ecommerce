@@ -16,66 +16,35 @@ function getClientIp(req) {
     return req.headers['x-forwarded-for']?.split(',').shift() || req.socket.remoteAddress;
 }
 
+
+function getCleanUser(user) {
+    return {
+        id: user._id,
+        userName: user.userName,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        emailAddress: user.emailAddress,
+        role: user.role,
+        profileImage: user.profileImage,
+    };
+};
+
 const isValidObjectId = (id) => {
     return /^[0-9a-fA-F]{24}$/.test(id);
 };
 
-const updateUserImage = async (req, res) => {
-    let file;
+const getUserIDByUserName = async (userName) => {
     try {
-        const userIdToUpdate = req.params.id;
-        const ipAddress = getClientIp(req);
-
-        file = req.file;
-
-        if (!file) {
-            await logAudit('UPDATE_PROFILE_IMAGE_NO_FILE_PROVIDED', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'No profile image file provided for update attempt.', ipAddress);
-            throw new ErrorHandler(400, "No profile image file provided.");
+        const user = await User.findOne({ userName }).exec();
+        const cleanUser = getCleanUser(user);
+        if (!user) {
+            console.log("User not found");
+            return null;
         }
-
-        if (!isValidObjectId(userIdToUpdate)) {
-            await logAudit('UPDATE_PROFILE_IMAGE_INVALID_USER_ID', null, null, 'User', 'Medium', 'Attempt to update profile image with invalid user ID format.', ipAddress);
-            throw new ErrorHandler(400, "Invalid user ID format.");
-        }
-
-        let userToUpdate = await User.findById(userIdToUpdate);
-        if (!userToUpdate) {
-            await logAudit('UPDATE_PROFILE_IMAGE_USER_NOT_FOUND', null, null, 'User', 'Medium', 'Attempt to update profile image for non-existing user.', ipAddress);
-            throw new ErrorHandler(404, "User not found.");
-        }
-
-
-        // Si el usuario ya tiene una imagen de perfil, elimínala
-        if (userToUpdate.profileImage) {
-            const oldProfileImagePath = path.join('uploads', 'users', 'staffs', userToUpdate.profileImage);
-            try {
-                await fs.unlink(oldProfileImagePath);
-            } catch (error) {
-                console.error(`Failed to delete old profile image: ${error.message}`);
-            }
-        }
-
-        // Actualizar la propiedad de imagen de perfil del usuario
-        userToUpdate.profileImage = file.filename;
-        await userToUpdate.save();
-
-        // Respuesta exitosa
-        res.status(200).json(handleSuccessfulResponse("Profile image updated successfully", { profileImage: userToUpdate.profileImage }));
-
-        // Registrar la auditoría
-        await logAudit('UPDATE_PROFILE_IMAGE', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'Profile image updated.', ipAddress);
-
+        return user._id.toString();  // Devuelve el ID como string
     } catch (error) {
-        // Manejar errores y enviar respuesta de error
-        if (file && file.path) {
-            // Eliminar el archivo temporal si existe
-            try {
-                await fs.unlink(file.path);
-            } catch (err) {
-                console.error(`Failed to delete temp file: ${err.message}`);
-            }
-        }
-        handleErrorResponse(error, req, res);
+        console.error("Error fetching user by userName:", error);
+        throw error;
     }
 };
 
@@ -94,6 +63,70 @@ const getUserImage = async function (req, res) {
         }
     };
 }
+
+
+const updateUserImage = async (req, res) => {
+    let file;
+    try {
+        const userName = req.params.userName;
+        const userIdToUpdate = await getUserIDByUserName(userName);
+
+        const userToUpdate = await User.findById(userIdToUpdate);
+        if (!userToUpdate) {
+            await logAudit('UPDATE_PROFILE_IMAGE_USER_NOT_FOUND', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'Attempt to update profile image for non-existing user.', ipAddress);
+            throw new ErrorHandler(404, "User not found.");
+        }
+
+        const ipAddress = getClientIp(req);
+        file = req.file;
+        if (!file) {
+            await logAudit('UPDATE_PROFILE_IMAGE_NO_FILE_PROVIDED', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'No profile image file provided for update attempt.', ipAddress);
+            throw new ErrorHandler(400, "No profile image file provided.");
+        }
+
+        if (!isValidObjectId(userIdToUpdate)) {
+            await logAudit('UPDATE_PROFILE_IMAGE_INVALID_USER_ID', null, null, 'User', 'Medium', 'Attempt to update profile image with invalid user ID format.', ipAddress);
+            throw new ErrorHandler(400, "Invalid user ID format.");
+        }
+        // Verificar si la imagen antigua existe antes de intentar eliminarla
+        if (userToUpdate.profileImage) {
+            const oldProfileImagePath = path.join('uploads', 'users', 'staffs', userToUpdate.profileImage);
+            try {
+                await fs.access(oldProfileImagePath);
+                await fs.unlink(oldProfileImagePath);
+            } catch (err) {
+                if (err.code === 'ENOENT') {
+                    console.log(`No previous profile picture to delete.`);
+                } else {
+                    throw err;
+                }
+            }
+        }
+
+        // Actualizar la propiedad de imagen de perfil del usuario
+        userToUpdate.profileImage = file.filename;
+        await userToUpdate.save();
+
+        // Registrar la auditoría
+        await logAudit('UPDATE_PROFILE_IMAGE', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'Profile image updated.', ipAddress);
+
+        // Respuesta exitosa
+        res.status(200).json(handleSuccessfulResponse("Profile image updated successfully", { profileImage: userToUpdate.profileImage }));
+    } catch (error) {
+        // Manejar errores y enviar respuesta de error
+        if (file && file.path) {
+            // Eliminar el archivo temporal si existe
+            try {
+                await fs.unlink(file.path);
+            } catch (err) {
+                console.error(`Failed to delete temp file: ${err.message}`);
+            }
+        }
+        handleErrorResponse(error, req, res);
+    }
+};
+
+
 
 // GET USER
 const getUser = async (req, res) => {
@@ -417,3 +450,65 @@ module.exports = {
     updateUserActiveStatus,
     updateMultipleUserActiveStatus
 };
+
+
+// const updateUserImage = async (req, res) => {
+//     let file;
+//     try {
+//         const userIdToUpdate = req.user.sub;
+//         // const userIdToUpdate = req.params.id;
+//         const ipAddress = getClientIp(req);
+//         file = req.file;
+//         if (!file) {
+//             await logAudit('UPDATE_PROFILE_IMAGE_NO_FILE_PROVIDED', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'No profile image file provided for update attempt.', ipAddress);
+//             throw new ErrorHandler(400, "No profile image file provided.");
+//         }
+
+//         if (!isValidObjectId(userIdToUpdate)) {
+//             await logAudit('UPDATE_PROFILE_IMAGE_INVALID_USER_ID', null, null, 'User', 'Medium', 'Attempt to update profile image with invalid user ID format.', ipAddress);
+//             throw new ErrorHandler(400, "Invalid user ID format.");
+//         }
+
+//         let userToUpdate = await User.findById(userIdToUpdate);
+//         if (!userToUpdate) {
+//             await logAudit('UPDATE_PROFILE_IMAGE_USER_NOT_FOUND', null, null, 'User', 'Medium', 'Attempt to update profile image for non-existing user.', ipAddress);
+//             throw new ErrorHandler(404, "User not found.");
+//         }
+
+//         // Verificar si la imagen antigua existe antes de intentar eliminarla
+//         if (userToUpdate.profileImage) {
+//             const oldProfileImagePath = path.join('uploads', 'users', 'staffs', userToUpdate.profileImage);
+//             try {
+//                 await fs.access(oldProfileImagePath);
+//                 await fs.unlink(oldProfileImagePath);
+//             } catch (err) {
+//                 if (err.code === 'ENOENT') {
+//                     console.log(`No previous profile picture to delete.`);
+//                 } else {
+//                     throw err;
+//                 }
+//             }
+//         }
+
+//         // Actualizar la propiedad de imagen de perfil del usuario
+//         userToUpdate.profileImage = file.filename;
+//         await userToUpdate.save();
+
+//         // Registrar la auditoría
+//         await logAudit('UPDATE_PROFILE_IMAGE', userIdToUpdate, userIdToUpdate, 'User', 'Medium', 'Profile image updated.', ipAddress);
+
+//         // Respuesta exitosa
+//         res.status(200).json(handleSuccessfulResponse("Profile image updated successfully", { profileImage: userToUpdate.profileImage }));
+//     } catch (error) {
+//         // Manejar errores y enviar respuesta de error
+//         if (file && file.path) {
+//             // Eliminar el archivo temporal si existe
+//             try {
+//                 await fs.unlink(file.path);
+//             } catch (err) {
+//                 console.error(`Failed to delete temp file: ${err.message}`);
+//             }
+//         }
+//         handleErrorResponse(error, req, res);
+//     }
+// };

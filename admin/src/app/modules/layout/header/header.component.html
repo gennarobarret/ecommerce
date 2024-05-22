@@ -165,39 +165,50 @@
                 <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
                     href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <img *ngIf="user && user.data.profileImage; else defaultImageimgfluid" class="img-fluid"
-                        [src]="getImageUrl(user.data.profileImage)" alt="Profile Image">
-                    <ng-template #defaultImageimgfluid>
-                        <img class="img-fluid" src="assets/img/illustrations/profiles/profile-0.png"
-                            alt="Profile Image" />
+                    <!-- Utilizar directamente imageUrl para la imagen del botón -->
+
+                    <img *ngIf="imageUrl; else defaultImage" class="img-fluid" [src]="imageUrl" alt="Profile Image">
+
+                    <ng-template #defaultImage>
+                        <img src="assets/img/illustrations/profiles/profile-0.png" alt="Default Profile Image"
+                            class="img-fluid">
                     </ng-template>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
-                    aria-labelledby="navbarDropdownUserImage">
-                    <h6 class="dropdown-header d-flex align-items-center">
-                        <img *ngIf="user && user.data.profileImage; else defaultImagedropdownuserimg" class="dropdown-user-img"
-                            [src]="getImageUrl(user.data.profileImage)" alt="Profile Image">
-                    <ng-template #defaultImagedropdownuserimg>
-                        <img class="dropdown-user-img" src="assets/img/illustrations/profiles/profile-0.png" alt="Profile Image" />
+            <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
+                aria-labelledby="navbarDropdownUserImage">
+                <h6 class="dropdown-header d-flex align-items-center">
+                    <!-- Utilizar la misma imagen para el header del dropdown -->
+                    <img *ngIf="imageUrl; else defaultImage" [src]="imageUrl" alt="Profile Image" class="dropdown-user-img">
+                    <ng-template #defaultImage>
+                        <img src="assets/img/illustrations/profiles/profile-0.png" alt="Default Profile Image"
+                            class="dropdown-user-img">
                     </ng-template>
-                        <div class="dropdown-user-details">
-                            <div class="dropdown-user-details-name">{{ user.data.lastName }}, {{ user.data.firstName }}
-                            </div>
-                            <div class="dropdown-user-details-email">{{ user.data.userName }}</div>
+                    <div class="dropdown-user-details">
+                        <!-- Conditional rendering for names -->
+                        <div class="dropdown-user-details-name">
+                            <ng-container *ngIf="displayFullName(); else defaultName">
+                                {{ displayFullName() }}
+                            </ng-container>
+                            <ng-template #defaultName>{{ user.data.userName }}</ng-template>
                         </div>
-                    </h6>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" (click)="accountSetting()">
-                        <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
-                        Account
-                    </a>
-                    <a class="dropdown-item" (click)="logout()">
-                        <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
-                        Logout
-                    </a>
-                </div>
+                        <div class="dropdown-user-details-email">{{ user.data.userName }}</div>
+                    </div>
+                </h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="accountSetting()">
+                    <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
+                    Account Settings
+                </a>
+                <a class="dropdown-item" (click)="logout()">
+                    <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
+                    Logout
+                </a>
+            </div>
+
+
             </div>
         </li>
+
 
     </ul>
 </nav>

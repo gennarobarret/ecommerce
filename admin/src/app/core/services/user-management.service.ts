@@ -1,20 +1,19 @@
-// Angular core and related imports
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-// RxJS imports
-import { Observable, Subject, catchError, finalize, tap, throwError, EMPTY } from 'rxjs';
+import { BehaviorSubject, Observable, of, catchError, finalize, tap, throwError, EMPTY, map } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
-// Application-specific interfaces
 import { User, UserWithToken } from '../interfaces/user.interface';
 import { ApiResponse } from '../../core/interfaces';
 
-// Configuration and services
 import { GLOBAL } from '../config/GLOBAL';
 import { ResponseHandlingService } from './response-handling.service';
 import { ErrorHandlingService } from './error-handling.service';
 import { SpinnerService } from './spinner.service';
+
 
 // Helper to manage API endpoints in a centralized way
 const API_ENDPOINTS = {
@@ -32,14 +31,46 @@ const API_ENDPOINTS = {
 })
 export class UserManagementService {
   private url: string = GLOBAL.url;
+  private userImagesCache: Map<string, Observable<string>> = new Map();
+  private userData$: Observable<ApiResponse<User>> | null = null;
+  private isFetching: boolean = false;
 
   constructor(
     private _http: HttpClient,
+    private sanitizer: DomSanitizer,
     private _router: Router,
     private _responseHandler: ResponseHandlingService,
     private _errorHandler: ErrorHandlingService,
     private _spinnerService: SpinnerService
   ) { }
+
+
+  getUser(): Observable<ApiResponse<User>> {
+    const token = this.getToken();
+    if (!token) {
+      this.logout();
+      return EMPTY;
+    }
+    if (!this.userData$ || !this.isFetching) {
+      this.isFetching = true;
+      const call = this._http.get<ApiResponse<User>>(`${this.url}${API_ENDPOINTS.getUser}`);
+      this.userData$ = this.handleApiCall(call, () => { }).pipe(
+        tap(() => console.log('Fetching data...')),
+        shareReplay(1),
+        finalize(() => {
+          this.userData$ = null;
+          this.isFetching = false;
+          console.log('Cache cleared');
+        })
+      );
+    }
+    return this.userData$;
+  }
+
+  clearUserDataCache() {
+    this.userData$ = null;
+  }
+  
 
   private handleApiCall<T>(call: Observable<T>, tapHandler: (response: any) => void): Observable<T> {
     this._spinnerService.show();
@@ -53,35 +84,37 @@ export class UserManagementService {
     );
   }
 
-  private getToken(): string | null {
+  private removeToken(): void {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('userData');
+    this._router.navigate(['/auth/login']);
+  }
+
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-
-
-  /**
-   * Constructs the URL for the user's profile image
-   * @param profileImage - Name of the profile image file
-   * @returns string - URL of the profile image
-   */
-
-  getUserImageUrl(profileImage: string): Observable<Blob> {
-    const call = this._http.get<Blob>(`${this.url}${API_ENDPOINTS.getUserImageUrl}/${profileImage}`, { responseType: 'blob' as 'json' });
-    return this.handleApiCall(call, response => {
-      this._responseHandler.handleResponse(response);
-    });
+  logout(): void {
+    this.removeToken();
   }
 
+  getUserImageUrl(profileImage: string): Observable<string> {
+    if (!this.userImagesCache.has(profileImage)) {
+      const observable = this._http.get<Blob>(`${this.url}${API_ENDPOINTS.getUserImageUrl}/${profileImage}`, { responseType: 'blob' as 'json' }).pipe(
+        map(blob => {
+          const objectUrl = URL.createObjectURL(blob);
+          return objectUrl;
+        }),
+        shareReplay(1),
+        finalize(() => this.userImagesCache.delete(profileImage))
+      );
+      this.userImagesCache.set(profileImage, observable);
+    }
+    return this.userImagesCache.get(profileImage)!;
+  }
 
-  /**
-   * Updates the profile image of the user
-   * @param userId - ID of the user
-   * @param formData - FormData containing the new profile image
-   * @returns Observable<ApiResponse<any>>
-   */
-  updateProfileImage(userId: string, formData: FormData): Observable<any> {
-    // Asegurarse de que el ID del usuario se añade correctamente a la URL
-    const url = `${this.url}${API_ENDPOINTS.updateProfileImage}/${userId}`;
+  updateProfileImage(userName: string, formData: FormData): Observable<any> {
+    const url = `${this.url}${API_ENDPOINTS.updateProfileImage}/${userName}`;
     const call = this._http.put<any>(url, formData);
     return this.handleApiCall(call, response => {
       this._responseHandler.handleResponse(response);
@@ -89,26 +122,6 @@ export class UserManagementService {
   }
 
 
-  /**
-   * Fetches the current user data
-   * @returns Observable<ApiResponse<User>>
-   */
-  getUser(): Observable<ApiResponse<User>> {
-    const token = this.getToken();
-    if (!token) {
-      this._router.navigate(['/auth/login']);
-      return EMPTY;
-    }
-    const call = this._http.get<ApiResponse<User>>(`${this.url}${API_ENDPOINTS.getUser}`);
-    return this.handleApiCall(call, () => { });
-  }
-
-
-  /**
-   * Fetches user data by ID
-   * @param id - ID of the user
-   * @returns Observable<ApiResponse<User>>
-   */
   getUserById(id: string): Observable<ApiResponse<User>> {
     const token = this.getToken();
     if (!token) {
@@ -119,11 +132,7 @@ export class UserManagementService {
     return this.handleApiCall(call, () => { });
   }
 
-  /**
-   * Creates a new user
-   * @param data - FormData containing user data
-   * @returns Observable<ApiResponse<User>>
-   */
+
   createUser(data: FormData): Observable<ApiResponse<User>> {
     const call = this._http.post<ApiResponse<User>>(`${this.url}${API_ENDPOINTS.createUser}`, data);
     return this.handleApiCall(call, response => {
@@ -131,12 +140,7 @@ export class UserManagementService {
     });
   }
 
-  /**
-   * Updates user data
-   * @param data - FormData containing updated user data
-   * @param id - ID of the user
-   * @returns Observable<ApiResponse<User>>
-   */
+
   updateUser(data: FormData, id: string): Observable<ApiResponse<User>> {
     const call = this._http.put<ApiResponse<User>>(`${this.url}${API_ENDPOINTS.updateUser}/${id}`, data);
     return this.handleApiCall(call, response => {
@@ -144,12 +148,7 @@ export class UserManagementService {
     });
   }
 
-  /**
-   * Lists all users with optional filtering
-   * @param filterKey - Key to filter by
-   * @param filterValue - Value to filter by
-   * @returns Observable<ApiResponse<User[]>>
-   */
+
   listAllUsers(filterKey?: string, filterValue?: string): Observable<ApiResponse<User[]>> {
     let params = new HttpParams();
     if (filterKey && filterValue) {
@@ -159,4 +158,11 @@ export class UserManagementService {
     const call = this._http.get<ApiResponse<User[]>>(`${this.url}${API_ENDPOINTS.listAllUsers}`, { params });
     return this.handleApiCall(call, () => { });
   }
+
 }
+
+
+
+  // getSafeUrl(objectUrl: string): SafeUrl {
+  //   return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+  // }

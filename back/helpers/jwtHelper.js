@@ -1,21 +1,22 @@
-require('dotenv').config();
+require('dotenv').config(); // Esta línea configura las variables de entorno
 
 "use strict";
 
-var jwt = require("jwt-simple");
-var moment = require("moment");
+const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined in .env');
 }
 
-var secret = process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 
 exports.createToken = function (user) {
     if (!user) {
         throw new Error("User data is required to create a token");
     }
-    var payload = {
+
+    const payload = {
         sub: user._id,
         userName: user.userName,
         firstName: user.firstName,
@@ -26,6 +27,7 @@ exports.createToken = function (user) {
         iat: moment().unix(),
         exp: moment().add(1, "days").unix(),
     };
+    console.log("🚀 ~ payload:", payload)
 
-    return jwt.encode(payload, secret);
+    return jwt.sign(payload, secret); // Aquí cambiamos `encode` por `sign`
 };

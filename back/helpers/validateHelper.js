@@ -1,8 +1,6 @@
 // helpers/validate.js
 const Joi = require('joi');
 
-
-
 const validateUser = (data, options = {}) => {
     const schema = Joi.object({
         _id: Joi.string()

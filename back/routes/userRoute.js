@@ -13,7 +13,7 @@ api.get('/getUserById/:id', [auth.auth, rbac('read', 'user')], userManagement.ge
 api.get('/listAllUsers', [auth.auth, rbac('read', 'user')], userManagement.listAllUsers);
 api.get('/getUserImage/:profileImage', [auth.auth, rbac('read', 'userImage')], userManagement.getUserImage);
 api.put('/updateUserInfo/:id', [auth.auth, rbac('update', 'user')], userManagement.updateUser);
-api.put('/updateUserImage/:id', [auth.auth, rbac('update', 'user'), uploadConfig.multerErrorHandler], userManagement.updateUserImage);
+api.put('/updateUserImage/:userName', [auth.auth, rbac('update', 'user'), uploadConfig.multerErrorHandler], userManagement.updateUserImage);
 api.patch('/updateUserActiveStatus/:userId', [auth.auth, rbac('update', 'user')], userManagement.updateUserActiveStatus);
 api.patch('/updateMultipleUserActiveStatus', [auth.auth, rbac('update', 'user')], userManagement.updateMultipleUserActiveStatus);
 

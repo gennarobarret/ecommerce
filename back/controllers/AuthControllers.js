@@ -33,14 +33,16 @@ function getClientIp(req) {
 
 function getCleanUser(user) {
     return {
-        _id: user._id,
+        id: user._id,
         userName: user.userName,
         firstName: user.firstName,
         lastName: user.lastName,
         emailAddress: user.emailAddress,
-        role: user.role
+        role: user.role.name,
+        profileImage: user.profileImage,
     };
 }
+
 
 // LOGIN USERS
 const loginUser = async (req, res) => {
@@ -174,8 +176,8 @@ const authenticateWithGoogle = async (req, res) => {
             user = new User({
                 googleId: userInfo.sub,
                 emailAddress: userInfo.email,
-                firstName: userInfo.given_name,
-                lastName: userInfo.family_name || 'NoLastName',
+                firstName: userInfo.given_name || 'notSpecified',
+                lastName: userInfo.family_name || 'notSpecified',
                 userName: generateUserName(userInfo.email),
                 role: role._id,
                 authMethod: 'google',
@@ -277,7 +279,7 @@ const activateUser = async (req, res) => {
                 'Redundant activation attempt for an already activated account.', // Mensaje detallado
                 ipAddress // IP desde la cual se intentó la activación
             );
-            throw new ErrorHandler(400, 'This account has already been activated.', req.originalUrl, req.method, );
+            throw new ErrorHandler(400, 'This account has already been activated.', req.originalUrl, req.method,);
         }
 
         user.verification = 'verified';

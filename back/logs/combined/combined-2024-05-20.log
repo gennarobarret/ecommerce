@@ -1,0 +1,6 @@
+{"level":"error","message":"API Error: Invalid user ID format.","stack":"No additional details provided.","status":400,"timestamp":"2024-05-20 22:27:33"}
+{"level":"error","message":"API Error: Invalid user ID format.","stack":"No additional details provided.","status":400,"timestamp":"2024-05-20 22:39:47"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-20 22:44:18"}
+{"level":"error","message":"API Error: Invalid user ID format.","stack":"No additional details provided.","status":400,"timestamp":"2024-05-20 22:44:35"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-20 22:53:42"}
+{"level":"info","message":"User masteradmin Successful login","timestamp":"2024-05-20 22:55:22"}
