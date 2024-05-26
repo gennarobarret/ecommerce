@@ -21,7 +21,7 @@ export class ResponseHandlingService {
     } else if (response instanceof Blob) {
       // Manejo de Blob
       let message = `Se recibió un archivo Blob de tipo ${response.type} y tamaño ${response.size}`;
-      console.log(message);
+      // console.log(message);
       this.messageSubject.next(message);
     } else if (response && typeof response === 'object') {
       // Manejo de respuestas JSON típicas

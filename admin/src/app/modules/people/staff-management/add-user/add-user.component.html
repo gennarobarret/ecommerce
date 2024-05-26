@@ -191,7 +191,7 @@
                                             formControlName="inputCountryAddress" (change)="onCountryChange($event)"
                                             [ngClass]="{'is-invalid': AddForm.get('inputCountryAddress')?.invalid && (AddForm.get('inputCountryAddress')?.dirty || AddForm.get('inputCountryAddress')?.touched)}">
                                             <option value="" disabled selected>Select user country</option>
-                                            <option *ngFor="let country of countries" [value]="country.id">
+                                            <option *ngFor="let country of countries" [value]="country._id">
                                                 {{ country.name }}
                                             </option>
                                         </select>
@@ -209,7 +209,7 @@
                                             formControlName="inputStateAddress"
                                             [ngClass]="{'is-invalid': AddForm.get('inputStateAddress')?.invalid && (AddForm.get('inputStateAddress')?.dirty || AddForm.get('inputStateAddress')?.touched)}">
                                             <option value="" disabled>Select user state</option>
-                                            <option *ngFor="let state of filteredStates" [value]="state.id">
+                                            <option *ngFor="let state of filteredStates" [value]="state._id">
                                                 {{ state.province_name }}
                                             </option>
                                         </select>

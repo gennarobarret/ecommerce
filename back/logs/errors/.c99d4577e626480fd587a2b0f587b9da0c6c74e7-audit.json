@@ -6,21 +6,6 @@
     "auditLog": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\.c99d4577e626480fd587a2b0f587b9da0c6c74e7-audit.json",
     "files": [
         {
-            "date": 1715327322402,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-10.log",
-            "hash": "1d825d690ff9e356a205d013f4650c2374effd272d22749c2cf3575da779a306"
-        },
-        {
-            "date": 1715383444166,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-11.log",
-            "hash": "8d6bc82dc571a87926ef8d715e91b854430c42b9cd33e11c311fc499849134de"
-        },
-        {
-            "date": 1715464933330,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-12.log",
-            "hash": "4205f86eaea0f16124c55536c3d014398d61134be46169153daf4d3bb93b4255"
-        },
-        {
             "date": 1715616618988,
             "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-13.log",
             "hash": "6bbca7b5c50e1f559b64293d2dd06c3d9e2f7c9847410ef0266d4a97fa619334"
@@ -69,6 +54,21 @@
             "date": 1716404383151,
             "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-22.log",
             "hash": "1482db0ea48a6084d0929d96ebcc62fc463fd8b9362a971ff839d45adf4d3654"
+        },
+        {
+            "date": 1716578866206,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-24.log",
+            "hash": "e079c72867c293f92ffc3f675d3c54f700ee92d99a164f64e5697e85c5ae7898"
+        },
+        {
+            "date": 1716646711677,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-25.log",
+            "hash": "f65cbc95e45f297f24973f44d6eec507621fc4ebc524a827f955bf5dca2e3912"
+        },
+        {
+            "date": 1716708779027,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\errors\\error-2024-05-26.log",
+            "hash": "2ea4acf75429036d0e972cae7b92036d07523c5270d4d7a3ce6b28df12bb540a"
         }
     ],
     "hashType": "sha256"

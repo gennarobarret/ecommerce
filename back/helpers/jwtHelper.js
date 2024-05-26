@@ -1,4 +1,4 @@
-require('dotenv').config(); // Esta línea configura las variables de entorno
+require('dotenv').config();
 
 "use strict";
 
@@ -17,7 +17,7 @@ exports.createToken = function (user) {
     }
 
     const payload = {
-        sub: user._id,
+        sub: user.id,
         userName: user.userName,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -27,7 +27,6 @@ exports.createToken = function (user) {
         iat: moment().unix(),
         exp: moment().add(1, "days").unix(),
     };
-    console.log("🚀 ~ payload:", payload)
-
-    return jwt.sign(payload, secret); // Aquí cambiamos `encode` por `sign`
+    
+    return jwt.sign(payload, secret);
 };

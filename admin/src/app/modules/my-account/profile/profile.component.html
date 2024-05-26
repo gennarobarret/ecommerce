@@ -23,10 +23,10 @@
             <a class="nav-link" [routerLink]="['/my-account/notifications']">Notifications</a>
         </nav>
         <hr class="mt-0 mb-4" />
-        <ng-container *ngIf="load_data">
+        <ng-container *ngIf="loading">
             <app-spinner></app-spinner>
         </ng-container>
-        <ng-container *ngIf="!load_data">
+        <ng-container *ngIf="!loading">
             <div class="row">
                 <div class="col-xl-4">
                     <app-user-image (imageUpdated)="fetchUserData()"></app-user-image>
@@ -154,22 +154,26 @@
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
+                                    
                                     <!-- Form Group (country)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputCountryAddress">Country</label>
                                         <select class="form-control" id="inputCountryAddress"
-                                            formControlName="inputCountryAddress" (change)="onCountryChange($event)"
+                                            formControlName="inputCountryAddress" (click)="loadCountries()"
+                                            (change)="onCountryChange($event)"
                                             [ngClass]="{'is-invalid': updateForm.get('inputCountryAddress')?.invalid && (updateForm.get('inputCountryAddress')?.dirty || updateForm.get('inputCountryAddress')?.touched)}">
-                                            <option value="" disabled selected>Select your country</option>
-                                            <option *ngFor="let country of countries" [value]="country.id">
+                                            <option value="" disabled
+                                                [selected]="!updateForm.get('inputCountryAddress')?.value">Select your
+                                                country
+                                            </option>
+                                            <option *ngFor="let country of countries" [value]="country._id">
                                                 {{ country.name }}
                                             </option>
                                         </select>
                                         <div *ngIf="updateForm.get('inputCountryAddress')?.invalid && (updateForm.get('inputCountryAddress')?.dirty || updateForm.get('inputCountryAddress')?.touched)"
-                                            class="text-danger">
-                                            <span *ngIf="updateForm.get('inputCountryAddress')?.errors?.['required']">
-                                                Country address is required.
-                                            </span>
+                                            class="invalid-feedback">
+                                            <div *ngIf="updateForm.get('inputCountryAddress')?.errors?.['required']">
+                                                Country is required.</div>
                                         </div>
                                     </div>
                                     <!-- Form Group (state)-->
@@ -178,18 +182,20 @@
                                         <select class="form-control" id="inputStateAddress"
                                             formControlName="inputStateAddress"
                                             [ngClass]="{'is-invalid': updateForm.get('inputStateAddress')?.invalid && (updateForm.get('inputStateAddress')?.dirty || updateForm.get('inputStateAddress')?.touched)}">
-                                            <option value="" disabled>Select your state</option>
-                                            <option *ngFor="let state of filteredStates" [value]="state.id">
+                                            <option value="" disabled
+                                                [selected]="!updateForm.get('inputStateAddress')?.value">Select your
+                                                state</option>
+                                            <option *ngFor="let state of filteredStates" [value]="state._id">
                                                 {{ state.province_name }}
                                             </option>
                                         </select>
                                         <div *ngIf="updateForm.get('inputStateAddress')?.invalid && (updateForm.get('inputStateAddress')?.dirty || updateForm.get('inputStateAddress')?.touched)"
-                                            class="text-danger">
-                                            <span *ngIf="updateForm.get('inputStateAddress')?.errors?.['required']">
-                                                State address is required.
-                                            </span>
+                                            class="invalid-feedback">
+                                            <div *ngIf="updateForm.get('inputStateAddress')?.errors?.['required']">State
+                                                is required.</div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">

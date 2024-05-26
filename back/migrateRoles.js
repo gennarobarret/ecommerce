@@ -1,6 +1,6 @@
 
 // migrateRoles.js
-const fs = require('fs');  // Asegúrate de añadir esta línea al inicio de tu script
+const fs = require('fs');
 require('dotenv').config();
 const path = require('path');
 const mongoose = require('mongoose');

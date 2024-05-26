@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (this._authService.getToken()) {
-    //   this._router.navigate(['']);
-    // }
+    if (this._authService.getToken()) {
+      this._router.navigate(['']);
+    }
   }
 
   login() {
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
             }
           },
           error: (error) => {
-            // console.error('Authentication failed:', error);
+            console.error('Authentication failed:', error);
             this._toastService.showToast(error.error.status, `${error.error.message}`);
           }
         });

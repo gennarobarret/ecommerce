@@ -44,7 +44,9 @@ async function initializeRolesAndPermissions() {
             { name: 'read_all_users', action: 'read', resource: 'user' },
             { name: 'read_user_image', action: 'read', resource: 'userImage' },
             { name: 'update_user', action: 'update', resource: 'user' },
-            { name: 'delete_user', action: 'delete', resource: 'user' }
+            { name: 'delete_user', action: 'delete', resource: 'user' },
+
+            { name: 'read', action: 'read', resource: 'geo' } 
         ];
 
         for (let permission of permissions) {

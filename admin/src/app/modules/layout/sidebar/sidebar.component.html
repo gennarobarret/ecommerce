@@ -183,8 +183,8 @@
                 </nav>
             </div>
             <!-- Sidenav Accordion (Inventory)-->
-            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseInventory"
-                aria-expanded="false" aria-controls="collapseInventory">
+            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                data-bs-target="#collapseInventory" aria-expanded="false" aria-controls="collapseInventory">
                 <div class="nav-link-icon"><i class="fas fa-book-open"></i></div>
                 Inventory
                 <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -193,7 +193,8 @@
                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavAppsMenu">
                     <!-- Nested Sidenav Accordion (Apps -> Knowledge Base)-->
                     <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
-                        data-bs-target="#appsCollapseProducts" aria-expanded="false" aria-controls="appsCollapseProducts">
+                        data-bs-target="#appsCollapseProducts" aria-expanded="false"
+                        aria-controls="appsCollapseProducts">
                         Products
                         <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -206,13 +207,15 @@
                     </div>
                     <!-- Nested Sidenav Accordion (Apps -> Categories)-->
                     <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
-                        data-bs-target="#appsCollapseCategories" aria-expanded="false" aria-controls="appsCollapseCategories">
+                        data-bs-target="#appsCollapseCategories" aria-expanded="false"
+                        aria-controls="appsCollapseCategories">
                         Categories
                         <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="appsCollapseCategories" data-bs-parent="#accordionSidenavAppsMenu">
                         <nav class="sidenav-menu-nested nav">
-                            <a class="nav-link" [routerLink]="['for-employees/operational-procedures']">Add New Category</a>
+                            <a class="nav-link" [routerLink]="['for-employees/operational-procedures']">Add New
+                                Category</a>
                             <a class="nav-link" [routerLink]="['for-employees/training-materials']">Category Lists</a>
                             <a class="nav-link" [routerLink]="['for-employees/company-policies']">Company Policies</a>
                             <a class="nav-link" [routerLink]="['for-employees/internal-FAQs']">Category management</a>
@@ -220,15 +223,18 @@
                     </div>
                     <!-- Nested Sidenav Accordion (Apps -> Subcategories)-->
                     <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
-                        data-bs-target="#appsCollapseSubcategories" aria-expanded="false" aria-controls="appsCollapseSubcategories">
+                        data-bs-target="#appsCollapseSubcategories" aria-expanded="false"
+                        aria-controls="appsCollapseSubcategories">
                         Subcategories
                         <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="appsCollapseSubcategories" data-bs-parent="#accordionSidenavAppsMenu">
                         <nav class="sidenav-menu-nested nav">
-                            <a class="nav-link" [routerLink]="['for-developers/technical-documentation']">Add new subcategory</a>
+                            <a class="nav-link" [routerLink]="['for-developers/technical-documentation']">Add new
+                                subcategory</a>
                             <a class="nav-link" [routerLink]="['for-developers/aPI-guides']">List of subcategories</a>
-                            <a class="nav-link" [routerLink]="['for-employees/development-best-practices']">Subcategory management</a>
+                            <a class="nav-link" [routerLink]="['for-employees/development-best-practices']">Subcategory
+                                management</a>
                         </nav>
                     </div>
                 </nav>
@@ -239,7 +245,8 @@
     <div class="sidenav-footer">
         <div class="sidenav-footer-content" *ngIf="user && user.data">
             <div class="sidenav-footer-subtitle">Logged in as:</div>
-            <div class="sidenav-footer-title">{{ user.data.lastName }}, {{ user.data.firstName }}</div>
+            <div class="sidenav-footer-title">{{ displayFullName() }}</div>
+            <div class="sidenav-footer-title">{{ user.data.emailAddress }}</div>
         </div>
     </div>
 </nav>

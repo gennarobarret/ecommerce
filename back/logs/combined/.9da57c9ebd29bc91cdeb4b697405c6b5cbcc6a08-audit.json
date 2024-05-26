@@ -6,26 +6,6 @@
     "auditLog": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\.9da57c9ebd29bc91cdeb4b697405c6b5cbcc6a08-audit.json",
     "files": [
         {
-            "date": 1713826723356,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-04-23.log",
-            "hash": "64289a65c00af20bab7e511336de85ab458c229625e6a9ca30718d17fdd75694"
-        },
-        {
-            "date": 1713910354922,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-04-24.log",
-            "hash": "cfcad7e8c6dbbae3a66afd8c403166bb8d548aa991b06ebed810532b611185d8"
-        },
-        {
-            "date": 1714074526958,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-04-25.log",
-            "hash": "aaebcc6d6045bc5555a42b5937b14a9182cf810f9b5634d192b53f0715342df5"
-        },
-        {
-            "date": 1714082522472,
-            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-04-26.log",
-            "hash": "ab329ff6142e26cdcdf3f0db75623058058ade15f2b6515d471e40e2a9e4b618"
-        },
-        {
             "date": 1714168806493,
             "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-04-27.log",
             "hash": "f25bbf1309d607c9a0e58764915ce38a7036625b0810d6a7606dca6ab50ebbfd"
@@ -149,6 +129,21 @@
             "date": 1716404383205,
             "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-05-22.log",
             "hash": "2f91891637dd3b20333aa94bf7e9731d28eb45d5450bcb6e2333e713836adefd"
+        },
+        {
+            "date": 1716578866226,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-05-24.log",
+            "hash": "490db02b394d1fde1d313e5e79d4d4cd877a10ee59656ca4735472e3b5e1d143"
+        },
+        {
+            "date": 1716646711711,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-05-25.log",
+            "hash": "f3b04fc50eeda77306907f6ddf52bac0764247280845c0f9fcf86f60a0f19372"
+        },
+        {
+            "date": 1716708779074,
+            "name": "C:\\Users\\Javier\\Documents\\proyectos\\e-commerce\\back\\logs\\combined\\warn-2024-05-26.log",
+            "hash": "052e190737621e9547448a37b4bb39355bade0e9b30ac2dfd6206d8223fe7c2e"
         }
     ],
     "hashType": "sha256"

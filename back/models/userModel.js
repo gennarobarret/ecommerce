@@ -33,11 +33,13 @@ const UserSchema = new Schema({
         trim: true
     },
     countryAddress: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Country',
         trim: true
     },
     stateAddress: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'State',
         trim: true
     },
     googleId: String,

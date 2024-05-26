@@ -15,6 +15,7 @@ const roleRoute = require('./routes/roleRoute');
 const permissionRoute = require('./routes/permissionRoute');
 const businessRoute = require('./routes/businessRoute');
 const auditLogsRoute = require('./routes/auditLogsRoute');
+const geoRoute = require('./routes/geoRoute');
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -50,5 +51,6 @@ app.use('/api', roleRoute);
 app.use('/api', permissionRoute);
 app.use('/api', businessRoute);
 app.use('/api', auditLogsRoute);
+app.use('/api', geoRoute); 
 
 module.exports = app;

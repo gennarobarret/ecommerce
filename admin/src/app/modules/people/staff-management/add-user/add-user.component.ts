@@ -121,7 +121,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
   }
 
   private loadCountries() {
-    this._geoInfoService.get_Countries().subscribe(
+    this._geoInfoService.getCountries().subscribe(
       data => {
         this.countries = data.sort((a: Country, b: Country) =>
           a.name.localeCompare(b.name)
@@ -135,7 +135,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
   }
 
   private loadStates() {
-    this._geoInfoService.get_States().subscribe(
+    this._geoInfoService.getStates().subscribe(
       data => {
         this.states = data.sort((a: State, b: State) =>
           a.province_name.localeCompare(b.province_name)

@@ -34,6 +34,7 @@ const handleControllerError = (error, res) => {
 const createPermission = async (req, res) => {
     try {
         const userId = req.user.sub;
+        console.log("🚀 ~ createPermission ~ userId:", userId)
         if (!userId) {
             console.log("🚀 ~ updateUser ~ req.user:", req.user)
             return res.status(401).send({ message: "Access Denied" });

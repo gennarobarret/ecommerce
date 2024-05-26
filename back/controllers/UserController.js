@@ -1,4 +1,4 @@
-// PeopleController.js
+// UserController.js
 "use strict";
 
 const User = require("../models/userModel");
@@ -138,7 +138,7 @@ const getUser = async (req, res) => {
         }
         const user = await User.findOne({ emailAddress: email }, 'userName firstName lastName emailAddress authMethod isActive profileImage emailNotifications role')
             .populate({ path: 'role', select: 'name' });
-        console.log("🚀 ~ getUser ~ user:", user)
+        // console.log("🚀 ~ getUser ~ user:", user)
         if (!user) {
             logger.info(`getUser attempt for non-existing user: ${email}`);
             await logAudit('GET_USER_ATTEMPT_FAIL', req.user.sub, null, 'User', 'Medium', `User not found for email: ${email}`);
